@@ -8,7 +8,34 @@ const app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header(
+        'Access-Control-Allow-Header',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+        );
+
+        if (req.method === 'OPTIONS') {
+            res.header(
+                'Access-Control-Allow-Methods', 'PUT, POST, DELETE, GET'
+            );
+        };
+
+        next();
+});
+
+//Declarando as rotas
+const rotaPostagem = require('./routes/postagem');
+
+//Rotas
+app.use('/postagem', rotaPostagem);
+
+app.use('/teste', (req, res , next) => {
+    res.status(200).send({
+        mensagem: "Tudo certo com o teste"
+    });
+});
 
 //Caso não encontre a rota
 app.use((req, res , next) => {
@@ -25,6 +52,7 @@ app.use((error, req, res, next) => {
         }
     });
 });
+
 
 // module.exports = app;
 app.listen(4000, () => {
