@@ -1,0 +1,26 @@
+{
+  "name": "api-nswt-node",
+  "version": "0.0.1",
+  "description": "Api para o site Nintendo Switch Traduções",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anathsu/API-NSWT-Node.git"
+  },
+  "author": "Willian Nascimento / will_ilha@outlook.com / https://github.com/anathsu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anathsu/API-NSWT-Node/issues"
+  },
+  "homepage": "https://github.com/anathsu/API-NSWT-Node#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7"
+  }
+}
