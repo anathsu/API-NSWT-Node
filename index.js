@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+// const db = require('./database/index')
 
 const app = express();
 
@@ -24,6 +25,8 @@ app.use((req, res, next) => {
 
         next();
 });
+
+// db.connect();
 
 //Declarando as rotas
 const rotaPostagem = require('./routes/postagem');

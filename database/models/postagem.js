@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const PostagemSchema = new mongoose.Schema({
     id: {
-        type: Int,
+        type: Number,
         require: true,
         unique: true
     },
@@ -28,12 +28,12 @@ const PostagemSchema = new mongoose.Schema({
     },
     dados:{
         type: Date,
-        default: date.now,
+        default: Date.now(),
         required: false
     },
 
 });
 
-const Postagem = mongoose.model('Postagem', PostagemSchema);
+// const Postagem = mongoose.model('Postagens', PostagemSchema);
 
-module.exports = Postagem;
+module.exports = mongoose.model('Postagens', PostagemSchema);

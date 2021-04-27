@@ -1,5 +1,9 @@
 const express = require('express');
 const router = express.Router();
+// const mongoose = require('mongoose');
+const Postagem = require('../database/models/postagem');
+
+
 
 //RETORNA TODAS AS POSTAGENS
 router.get('/', (req, res, next) => {
@@ -19,7 +23,10 @@ router.get('/:id', (req, res, next) => {
 
 //CRIA UMA POSTAGEM
 router.post('/', (req, res, next) => {
-    const postagem = {
+    //Acho que meu erro é aqui
+    // var postagem = mongoose.model('Postagens');
+
+    new Postagem({
         id: req.body.id,
         titulo: req.body.titulo,
         img: req.body.img,
@@ -27,7 +34,11 @@ router.post('/', (req, res, next) => {
         creditos: req.body.creditos,
         download: req.body.download,
         dados: req.body.dados
-    };
+    }).save().then(() => {
+        console.log("Postagem cadastrada com sucesso!")
+    }).catch((err) => {
+        console.log("Houve um erro ao registrar uma postagem: "+err)
+    });
 
     res.status(201).send({
         mensagem: "Usando POST dentro da rota de Postagem",
