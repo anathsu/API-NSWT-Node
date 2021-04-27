@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const mongoose = require('mongoose');
 const postagem = require('../database/models/postagem');
-
-
 
 //RETORNA TODAS AS POSTAGENS
 router.get('/', async (req, res, next) => {
@@ -67,12 +64,17 @@ router.patch('/:id', async (req, res, next) => {
 });
 
 //DELETA UMA POSTAGEM PELO ID
-router.delete('/', (req, res, next) => {
-    res.status(200).send({
-        mensagem: "Usando DELETE dentro da rota de Postagem"
-    });
+router.delete('/:id', async (req, res, next) => {
+    try{
+        await postagem.findByIdAndRemove(req.params.id);
+        console.log("Postagem deletada com sucesso!");
+        res.status(200).send({
+            mensagem: "Postagem deletada com sucesso!"
+        });
+    }catch(err){
+        res.send('Erro: '+err)
+        console.log("Houve um erro ao deletar a postagem: "+err);
+    }
 });
-
-
 
 module.exports = router;
