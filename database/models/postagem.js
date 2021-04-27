@@ -1,12 +1,7 @@
 const mongoose = require('../index');
 
 const PostagemSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        require: true,
-        unique: true
-    },
-    titulo: {
+    title: {
         type: String,
         require: true,
     },
@@ -26,7 +21,7 @@ const PostagemSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    dados:{
+    data:{
         type: Date,
         default: Date.now(),
         required: false
@@ -36,4 +31,4 @@ const PostagemSchema = new mongoose.Schema({
 
 // const Postagem = mongoose.model('Postagens', PostagemSchema);
 
-module.exports = mongoose.model('Postagens', PostagemSchema);
+module.exports = mongoose.model('postagens', PostagemSchema);

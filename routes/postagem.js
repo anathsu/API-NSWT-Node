@@ -6,55 +6,64 @@ const postagem = require('../database/models/postagem');
 
 
 //RETORNA TODAS AS POSTAGENS
-router.get('/', (req, res, next) => {
-    res.status(200).send({
-        mensagem: "Usando GET dentro da rota de Postagem"
-    });
+router.get('/', async (req, res, next) => {
+    try{
+        const getAll = await postagem.find();
+        res.json(getAll);
+    }catch(err){
+        res.send('Erro: ' + err);
+    }
 });
 
 //RETORNA UMA POSTAGEM PELO ID
-router.get('/:id', (req, res, next) => {
-    const id = req.params.id
-    res.status(200).send({
-        mensagem: "Usando GET dentro da rota com id de Postagem",
-        id: id
-    });
-});
+router.get('/:id', async (req, res, next) => {
+    try{
+        const getById = await postagem.findById(req.params.id);
+        res.json(getById);
+    }catch(err){
+        res.send('Erro: ' + err);
+    }
+  });
 
 //CRIA UMA POSTAGEM
-router.post('/', (req, res, next) => {
-    //Acho que meu erro é aqui
-    // var postagem = mongoose.model('Postagens');
-
-    new postagem({
-        id: req.body.id,
-        titulo: req.body.titulo,
+router.post('/', async (req, res, next) => {
+    const novaPostagem = new postagem({
+        title: req.body.title,
         img: req.body.img,
         equipe: req.body.equipe,
         creditos: req.body.creditos,
         download: req.body.download,
-        dados: req.body.dados
-    }).save().then(() => {
-        console.log('Postagem cadastrada com sucesso!')
-        res.status(201).send({
-            mensagem: "Postagem cadastrada com sucesso!",
-            postagemCriada: postagem
-        });
-    }).catch((err) => {
-        console.log("Houve um erro ao registrar uma postagem: "+err)
-        res.status(404).send({
-            mensagem: "Houve um erro ao registrar uma postagem: "+err
-        });
+        data: req.body.data
     });
+    
+    try{
+        const np =  await novaPostagem.save();
+        res.json(np);
+        console.log('Postagem cadastrada com sucesso!')
+    }catch(err){
+        res.send('Erro: '+err)
+        console.log("Houve um erro ao registrar uma postagem: "+err)
+    }
 });
 
 //ATUALIZA UMA POSTAGEM PELO ID
-router.put('/', (req, res, next) => {
-    const id = req.params.id
-    res.status(200).send({
-        mensagem: "Usando PUT dentro da rota com id de Postagem",
-        id: id
-    });
+router.patch('/:id', async (req, res, next) => {
+    try{
+        const atPostagem = await postagem.findById(req.params.id);
+        atPostagem.title = req.body.title;
+        atPostagem.img = req.body.img;
+        atPostagem.equipe = req.body.equipe;
+        atPostagem.creditos = req.body.creditos;
+        atPostagem.download = req.body.download;
+        atPostagem.data = req.body.data;
+
+        const ap = await atPostagem.save()
+        res.json(ap)
+        console.log('Postagem atualizada com sucesso!')
+    }catch(err){
+        res.send('Erro: '+err)
+        console.log("Houve um erro ao atualizar a postagem: "+err)
+    }
 });
 
 //DELETA UMA POSTAGEM PELO ID

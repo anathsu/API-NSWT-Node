@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/apiSwitch', {
+mongoose.connect('mongodb://localhost/apiNSWT', {
     useMongoClient: true
 }).then(() => {
     console.log("Conectado ao banco de dados MongoDB com sucesso!")
