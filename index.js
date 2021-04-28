@@ -58,6 +58,6 @@ app.use((error, req, res, next) => {
 
 
 // module.exports = app;
-app.listen(4000, () => {
+app.listen(process.env.PORT || 4000, () => {
     console.log('Servidor express iniciado em http://localhost:4000')
 });
