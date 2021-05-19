@@ -1,15 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
-const cors = require('cors');
 const bodyParser = require('body-parser');
-// const db = require('./database/index')
 
 const app = express();
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(cors());
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -17,7 +14,6 @@ app.use((req, res, next) => {
         'Access-Control-Allow-Header', "Access-Control-Allow-Headers",
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
         );
-
     next();
 });
 
