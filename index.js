@@ -1,24 +1,25 @@
 const express = require('express');
 const morgan = require('morgan');
-
+const cors = require('cors')
 const app = express();
 
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header(
-        'Access-Control-Allow-Header', "Access-Control-Allow-Header",
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-        );
-    next();
+app.use(cors())
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header(
+//         'Access-Control-Allow-Header', "Access-Control-Allow-Header",
+//         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+//         );
+//     next();
 
-    if (req.method === 'OPTIONS') {
-        res.header(
-            'Access-Control-Allow-Methods', 'PUT, PATCH, POST, DELETE, GET'
-        );
-    };
+//     if (req.method === 'OPTIONS') {
+//         res.header(
+//             'Access-Control-Allow-Methods', 'PUT, PATCH, POST, DELETE, GET'
+//         );
+//     };
 });
 
 //Declarando as rotas
