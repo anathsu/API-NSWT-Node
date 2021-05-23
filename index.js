@@ -20,7 +20,7 @@ app.use(cors())
 //             'Access-Control-Allow-Methods', 'PUT, PATCH, POST, DELETE, GET'
 //         );
 //     };
-});
+// });
 
 //Declarando as rotas
 const rotaPostagem = require('./routes/postagem');
